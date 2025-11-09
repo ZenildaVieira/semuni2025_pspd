@@ -1,0 +1,24 @@
+services:
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+  frontend:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    command: ["npm", "run", "dev"]
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: semuni_db
+    ports:
+      - "5432:5432"
